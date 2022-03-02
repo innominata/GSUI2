@@ -1,0 +1,32 @@
+[config]
+schemaVersion = "0.0.1"
+
+[package]
+namespace = "GSUI"
+name = "GSUI"
+versionNumber = "2.0"
+description = "v2.0 Initial Release"
+websiteUrl = "https://github.com/innominata/GSUI2"
+containsNsfwContent = false
+
+[package.dependencies]
+"xiaoye97-BepInEx" = "5.4.17"
+
+[build]
+icon = "./Package/icon.png"
+readme = "./Package/README.md"
+outdir = "./"
+
+[[build.copy]]
+source = "./obj/Debug/net472/GSUI2.dll"
+target = "./GSUI2.dll"
+[[build.copy]]
+source = "./Package/gsui.assetbundle"
+target = "./gsui.assetbundle"
+[[build.copy]]
+source = "./Package/UnityUIExtensions.dll"
+target = "./UnityUIExtensions.dll"
+[publish]
+repository = "https://dsp.thunderstore.io"
+communities = ["dyson-sphere-program"]
+categories = []

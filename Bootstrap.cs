@@ -1,0 +1,72 @@
+﻿using System.Collections;
+using System.IO;
+using System.Reflection;
+using BepInEx;
+using BepInEx.Logging;
+using GSUISerializer;
+using HarmonyLib;
+using UnityEngine;
+
+namespace GalacticScale
+{
+    public partial class GSUI
+    {
+        public static int PreferencesVersion = 2104;
+    }
+
+
+    [BepInPlugin("dsp.gsui2", "GSUI 2 Plug-In", "2.0")]
+    public class Bootstrap : BaseUnityPlugin
+    {
+        public new static ManualLogSource Logger;
+        public static Queue buffer = new();
+
+        internal void Awake()
+        {
+            InitializeLogger();
+            ApplyHarmonyPatches();
+        }
+
+        private void InitializeLogger()
+        {
+            var v = Assembly.GetExecutingAssembly().GetName().Version;
+            GSUI.Version = $"{v.Major}.{v.Minor}.{v.Build}";
+            Logger = new ManualLogSource("GSUI");
+            BepInEx.Logging.Logger.Sources.Add(Logger);
+        }
+
+        private void ApplyHarmonyPatches()
+        {
+            var _ = new Harmony("dsp.galactic-scale.2");
+            // Harmony.CreateAndPatchAll(typeof(PatchOnWhatever));
+            
+        }
+
+        public static void Debug(object data, LogLevel logLevel, bool isActive)
+        {
+            if (isActive && Logger != null)
+                {
+                    while (buffer.Count > 0)
+                    {
+                        var o = buffer.Dequeue();
+                        var l = ((object data, LogLevel loglevel, bool isActive))o;
+                        if (l.isActive) Logger.Log(l.loglevel, "Q:" + l.data);
+                    }
+
+                    Logger.Log(logLevel, data);
+                }
+                else
+                {
+                    buffer.Enqueue((data, logLevel, true));
+                }
+            
+        }
+
+        public static void Debug(object data)
+        {
+            Debug(data, LogLevel.Message, true);
+        }
+
+
+    }
+}
