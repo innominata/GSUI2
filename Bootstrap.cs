@@ -1,20 +1,11 @@
 ﻿using System.Collections;
-using System.IO;
 using System.Reflection;
 using BepInEx;
 using BepInEx.Logging;
-using GSUISerializer;
 using HarmonyLib;
-using UnityEngine;
 
-namespace GalacticScale
+namespace GS
 {
-    public partial class GSUI
-    {
-        public static int PreferencesVersion = 2104;
-    }
-
-
     [BepInPlugin("dsp.gsui2", "GSUI 2 Plug-In", "2.0")]
     public class Bootstrap : BaseUnityPlugin
     {
@@ -23,50 +14,51 @@ namespace GalacticScale
 
         internal void Awake()
         {
+            
             InitializeLogger();
+            Debug("Awake");
+            GS.Warn("Awake");
             ApplyHarmonyPatches();
         }
 
         private void InitializeLogger()
         {
             var v = Assembly.GetExecutingAssembly().GetName().Version;
-            GSUI.Version = $"{v.Major}.{v.Minor}.{v.Build}";
-            Logger = new ManualLogSource("GSUI");
+            GS.Version = $"{v.Major}.{v.Minor}.{v.Build}";
+            Logger = new ManualLogSource("GSUI2");
             BepInEx.Logging.Logger.Sources.Add(Logger);
+            Debug("Initialized Logger");
         }
 
         private void ApplyHarmonyPatches()
         {
-            var _ = new Harmony("dsp.galactic-scale.2");
-            // Harmony.CreateAndPatchAll(typeof(PatchOnWhatever));
-            
+            Debug("Patching");
+            var _ = new Harmony("dsp.gsui2");
+            Harmony.CreateAndPatchAll(typeof(Patches));
         }
 
         public static void Debug(object data, LogLevel logLevel, bool isActive)
         {
             if (isActive && Logger != null)
+            {
+                while (buffer.Count > 0)
                 {
-                    while (buffer.Count > 0)
-                    {
-                        var o = buffer.Dequeue();
-                        var l = ((object data, LogLevel loglevel, bool isActive))o;
-                        if (l.isActive) Logger.Log(l.loglevel, "Q:" + l.data);
-                    }
+                    var o = buffer.Dequeue();
+                    var l = ((object data, LogLevel loglevel, bool isActive))o;
+                    if (l.isActive) Logger.Log(l.loglevel, "Q:" + l.data);
+                }
 
-                    Logger.Log(logLevel, data);
-                }
-                else
-                {
-                    buffer.Enqueue((data, logLevel, true));
-                }
-            
+                Logger.Log(logLevel, data);
+            }
+            else
+            {
+                buffer.Enqueue((data, logLevel, true));
+            }
         }
 
         public static void Debug(object data)
         {
             Debug(data, LogLevel.Message, true);
         }
-
-
     }
 }

@@ -5,6 +5,5 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Member Access", "Publicizer001:Accessing a member that was not originally public", Justification = "Hacks!", Scope = "namespaceanddescendants", Target = "GalacticScale")]
-[assembly: SuppressMessage("Method Declaration", "Harmony003:Harmony non-ref patch parameters modified", Justification = "Hacks!", Scope = "namespaceanddescendants", Target = "GalacticScale")]
-[assembly: SuppressMessage("Member Access", "Publicizer001:Accessing a member that was not originally public", Justification = "Hacks!", Scope = "namespaceanddescendants", Target = "NebulaCompatibility")]
+[assembly: SuppressMessage("Member Access", "Publicizer001:Accessing a member that was not originally public", Justification = "Hacks!", Scope = "namespaceanddescendants", Target = "GS")]
+[assembly: SuppressMessage("Method Declaration", "Harmony003:Harmony non-ref patch parameters modified", Justification = "Hacks!", Scope = "namespaceanddescendants", Target = "GS")]
