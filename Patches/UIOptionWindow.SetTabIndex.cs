@@ -9,7 +9,7 @@ namespace GS
         [HarmonyPatch(typeof(UIOptionWindow), "SetTabIndex")]
         public static void SetTabIndex(int index, bool immediate, ref UIOptionWindow __instance)
         {
-            Warn($"{index} <= {PageManager.LastVanillaTabIndex} LastIndex:{__instance.tabButtons.Length -1}");
+            Warn($"{index} <= {PageManager.LastVanillaTabIndex} LastIndex:{__instance.tabButtons.Length - 1}");
             if (index < PageManager.Pages[0]?.tabIndex) PageManager.HideAllPages();
         }
     }

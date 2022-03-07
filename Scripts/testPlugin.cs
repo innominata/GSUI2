@@ -1,16 +1,17 @@
 ﻿using static GS.GS;
+
 namespace GS
 {
-    public class testPlugin :iConfigurablePlugin
+    public class testPlugin : iConfigurablePlugin
     {
+        public static Settings Preferences = new();
         public string Name => "Test Plugin";
         public string Author => "inno";
         public string Description => "desc";
         public string Version => "Ver";
         public string GUID => "dsp.test.plugin";
-        public GSOptions Options => options;
-        private GSOptions options = new GSOptions();
-        public static Settings Preferences = new();
+        public GSOptions Options { get; } = new();
+
         public bool Enabled
         {
             get
@@ -25,11 +26,15 @@ namespace GS
                 Preferences.Set("Enabled", value);
             }
         }
+
         public void Init()
         {
             Log("Init");
-            options.Add(GSUI.Button("Test", "Test2", null));
-            options.Add(GSUI.Separator());options.Add(GSUI.Separator());options.Add(GSUI.Separator());options.Add(GSUI.Separator());
+            Options.Add(GSUI.Button("Test", "Test2", null));
+            Options.Add(GSUI.Separator());
+            Options.Add(GSUI.Separator());
+            Options.Add(GSUI.Separator());
+            Options.Add(GSUI.Separator());
         }
 
         public void Import(Settings preferences)

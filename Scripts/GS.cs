@@ -5,7 +5,6 @@ using System.IO;
 using System.Reflection;
 using BepInEx;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace GS
 {
@@ -19,6 +18,7 @@ namespace GS
         public static bool CanvasOverlay = false;
         private static readonly string AssemblyPath = Path.GetDirectoryName(Assembly.GetAssembly(typeof(GS)).Location);
         private static AssetBundle bundle;
+
         public static AssetBundle Bundle
         {
             get
@@ -31,19 +31,23 @@ namespace GS
                     else bundle = AssetBundle.LoadFromFile(path2);
                     // foreach (var name in _bundle.GetAllAssetNames()) GS2.Warn("Bundle Contents:" + name);
                 }
+
                 if (bundle == null)
                 {
                     Error("Failed to load AssetBundle!".Translate());
                     UIMessageBox.Show("Error", "Asset Bundle not found. \r\nPlease ensure your directory structure is correct.\r\n Installation instructions can be found at http://customizing.space/release. \r\nAn error log has been generated in the plugin/ErrorLog Directory".Translate(), "Return".Translate(), 0);
                     return null;
                 }
+
                 return bundle;
             }
         }
+
         public static void ShowMessage(string message, string title = "GSUI", string button = "OK")
         {
             UIMessageBox.Show(title.Translate(), message.Translate(), button.Translate(), 0);
         }
+
         public static Type GetCallingType()
         {
             return new StackTrace().GetFrame(2).GetMethod().ReflectedType;
@@ -61,17 +65,15 @@ namespace GS
         public static void OnMenuLoaded()
         {
             Warn("Menu Loaded, Adding Pages");
-            var testPlugin = new testPlugin() { };
+            var testPlugin = new testPlugin();
             testPlugin.Init();
-            var p = new Page() { plugin = testPlugin };
-            
+            var p = new Page { plugin = testPlugin };
+
             PageManager.Pages.Add(p);
         }
 
         public static void ApplySettings()
         {
         }
-
-
     }
 }

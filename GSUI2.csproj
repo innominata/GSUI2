@@ -1,46 +1,46 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<DevEnvLoc>$(MSBuildThisFileDirectory)DevEnv.targets</DevEnvLoc>
-		<TargetFramework>net472</TargetFramework>
-	</PropertyGroup>
-	<Import Project="$(DevEnvLoc)" Condition="Exists('$(DevEnvLoc)')" />
-	<PropertyGroup>
-		<AssemblyName>GSUI2</AssemblyName>
-		<Description>Settings Library</Description>
-		<Version>2.0</Version>
-		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-		<LangVersion>9.0</LangVersion>
-		<OutDir>bin/$(Configuration)</OutDir>
-		<OutDir Condition="Exists($(PluginDir))">$(PluginDir)\GSUI2\</OutDir>
-	</PropertyGroup>
+    <PropertyGroup>
+        <DevEnvLoc>$(MSBuildThisFileDirectory)DevEnv.targets</DevEnvLoc>
+        <TargetFramework>net472</TargetFramework>
+    </PropertyGroup>
+    <Import Project="$(DevEnvLoc)" Condition="Exists('$(DevEnvLoc)')"/>
+    <PropertyGroup>
+        <AssemblyName>GSUI2</AssemblyName>
+        <Description>Settings Library</Description>
+        <Version>2.0</Version>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <LangVersion>9.0</LangVersion>
+        <OutDir>bin/$(Configuration)</OutDir>
+        <OutDir Condition="Exists($(PluginDir))">$(PluginDir)\GSUI2\</OutDir>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
-		<PackageReference Include="BepInEx.Core" Version="5.*" />
-		<PackageReference Include="BepInEx.PluginInfoProps" Version="1.*" />
-		<PackageReference Include="UnityEngine.Modules" Version="2018.4.12" IncludeAssets="compile" />
-		<PackageReference Include="DysonSphereProgram.GameLibs" Version="*-*" IncludeAssets="compile" />
-		<PackageReference Include="DysonSphereProgram.Modding.NebulaMultiplayerModApi" Version="*" IncludeAssets="compile" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all"/>
+        <PackageReference Include="BepInEx.Core" Version="5.*"/>
+        <PackageReference Include="BepInEx.PluginInfoProps" Version="1.*"/>
+        <PackageReference Include="UnityEngine.Modules" Version="2018.4.12" IncludeAssets="compile"/>
+        <PackageReference Include="DysonSphereProgram.GameLibs" Version="*-*" IncludeAssets="compile"/>
+        <PackageReference Include="DysonSphereProgram.Modding.NebulaMultiplayerModApi" Version="*" IncludeAssets="compile"/>
+    </ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
-		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
-	</ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
+        <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all"/>
+    </ItemGroup>
 
-	<ItemGroup>
-		<Reference Include="UnityUIExtensions">
-			<HintPath>Package\UnityUIExtensions.dll</HintPath>
-		</Reference>
-	</ItemGroup>
+    <ItemGroup>
+        <Reference Include="UnityUIExtensions">
+            <HintPath>Package\UnityUIExtensions.dll</HintPath>
+        </Reference>
+    </ItemGroup>
 
 
-	<ItemGroup>
-		<None Update="LICENSE">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="Package\gsui.assetbundle">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-			<TargetPath>gsui.assetbundle</TargetPath>
-		</None>
-	</ItemGroup>
+    <ItemGroup>
+        <None Update="LICENSE">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Package\gsui.assetbundle">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <TargetPath>gsui.assetbundle</TargetPath>
+        </None>
+    </ItemGroup>
 </Project>

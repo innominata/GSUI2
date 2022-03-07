@@ -18,6 +18,7 @@ namespace GS
                 Warn("Could not find Overlay Canvas or TopWindows");
                 return;
             }
+
             var contentGS = GameObject.Find("Option Window/details/content-gsui");
             if (contentGS == null)
             {

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using HarmonyLib;
-using NGPT;
 using UnityEngine;
 using UnityEngine.UI;
 using static GS.GS;
+
 namespace GS
 {
     public class PageManager
@@ -22,10 +22,10 @@ namespace GS
             // if (index <= LastVanillaTabIndex) HideAllPages();
             // else
             // {
-                UIRoot.instance.optionWindow.SetTabIndex(tabIndex, false);
-                for(var i=0;i<Pages.Count;i++)
-                    if (i == pageIndex) Pages[pageIndex].Show();
-                    else Pages[pageIndex].Hide();
+            UIRoot.instance.optionWindow.SetTabIndex(tabIndex, false);
+            for (var i = 0; i < Pages.Count; i++)
+                if (i == pageIndex) Pages[pageIndex].Show();
+                else Pages[pageIndex].Hide();
             // }
         }
 
@@ -37,6 +37,7 @@ namespace GS
             //     Pages[i].Hide();
             // }
         }
+
         public static void CreateSettingsPages(UIOptionWindow __instance)
         {
             Warn("Creating Settings Pages");
@@ -46,26 +47,26 @@ namespace GS
             LastVanillaTabIndex = __instance.tabButtons.Length - 1;
             Warn($"Set LastVanillaTabIndex to {LastVanillaTabIndex}");
             tabButtonTemplate = tabParent.GetChild(tabParent.childCount - 1).GetComponent<RectTransform>();
-            for (int i = 0; i < Pages.Count; i++)
+            for (var i = 0; i < Pages.Count; i++)
             {
-               (var b, var t) = Pages[i].CreatePage(i);
-               var uibutton = b.GetComponent<UIButton>();
-               var uitext = b.GetComponentInChildren<Text>();
-               uibutton.gameObject.name = "ARGH";
-               Warn($"{__instance.tabButtons.Length} ");
-               UIButton[] newTabButtons = __instance.tabButtons.AddToArray(uibutton);
-               __instance.tabButtons = newTabButtons;
-               // __instance.tabButtons.AddItem(uibutton);
-               Warn(__instance.tabButtons.Length.ToString());
-               Text[] newTabTexts = __instance.tabTexts.AddToArray(uitext);
-               __instance.tabTexts = newTabTexts;
-               // __instance.tabTexts.AddItem(r.GetComponentInChildren<Text>());
-               Tweener[] tabTweeners = __instance.tabTweeners;
-               Tweener[] newContents = tabTweeners.AddToArray(t);
-               __instance.tabTweeners = newContents;
-               // RectTransform contentTemplate = tabTweeners[0].GetComponent<RectTransform>();
-               // multiplayerContent = Object.Instantiate(contentTemplate, contentTemplate.parent, true);
-               // multiplayerContent.name = "multiplayer-content";
+                var (b, t) = Pages[i].CreatePage(i);
+                var uibutton = b.GetComponent<UIButton>();
+                var uitext = b.GetComponentInChildren<Text>();
+                uibutton.gameObject.name = "ARGH";
+                Warn($"{__instance.tabButtons.Length} ");
+                var newTabButtons = __instance.tabButtons.AddToArray(uibutton);
+                __instance.tabButtons = newTabButtons;
+                // __instance.tabButtons.AddItem(uibutton);
+                Warn(__instance.tabButtons.Length.ToString());
+                var newTabTexts = __instance.tabTexts.AddToArray(uitext);
+                __instance.tabTexts = newTabTexts;
+                // __instance.tabTexts.AddItem(r.GetComponentInChildren<Text>());
+                var tabTweeners = __instance.tabTweeners;
+                var newContents = tabTweeners.AddToArray(t);
+                __instance.tabTweeners = newContents;
+                // RectTransform contentTemplate = tabTweeners[0].GetComponent<RectTransform>();
+                // multiplayerContent = Object.Instantiate(contentTemplate, contentTemplate.parent, true);
+                // multiplayerContent.name = "multiplayer-content";
             }
         }
     }

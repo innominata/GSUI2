@@ -11,10 +11,6 @@ namespace GS
 {
     public class Page
     {
-        public iConfigurablePlugin plugin;
-        public RectTransform TabButton;
-        public int pageIndex;
-        public int tabIndex;
         public static RectTransform page;
         private static float anchorX;
         private static float anchorY;
@@ -22,6 +18,11 @@ namespace GS
         private static RectTransform GSSettingsPanel;
         private static GSUIPanel SettingsPanel;
         private static readonly GSOptions options = new();
+        public int pageIndex;
+        public iConfigurablePlugin plugin;
+        public RectTransform TabButton;
+        public int tabIndex;
+
         public (RectTransform, Tweener) CreatePage(int _index)
 
         {
@@ -29,7 +30,7 @@ namespace GS
             pageIndex = _index;
             TabButton = Object.Instantiate(PageManager.tabButtonTemplate, PageManager.tabLine, false);
             TabButton.name = "tab-button-gsui";
-            TabButton.anchoredPosition = new Vector2(TabButton.anchoredPosition.x + ((pageIndex+1)*160), TabButton.anchoredPosition.y);
+            TabButton.anchoredPosition = new Vector2(TabButton.anchoredPosition.x + (pageIndex + 1) * 160, TabButton.anchoredPosition.y);
             Object.Destroy(TabButton.GetComponentInChildren<Localizer>());
             TabButton.GetComponent<Button>().onClick.RemoveAllListeners();
             TabButton.GetComponentInChildren<Text>().text = plugin.Name;
@@ -37,7 +38,7 @@ namespace GS
             var detailsTemplate = GameObject.Find("Option Window/details/content-5").GetComponent<RectTransform>();
             page = Object.Instantiate(detailsTemplate, GameObject.Find("Option Window/details").GetComponent<RectTransform>(), false);
             page.gameObject.SetActive(true);
-            page.gameObject.name = $"content-gsui";
+            page.gameObject.name = "content-gsui";
 
             var languageCombo = page.Find("language").GetComponent<RectTransform>();
             anchorX = languageCombo.anchoredPosition.x;
@@ -88,15 +89,12 @@ namespace GS
             Warn($"Tab Clicked for {plugin.GUID}");
             var tabButton = TabButton.GetComponent<UIButton>();
             for (var i = 0; i < UIRoot.instance.optionWindow.tabButtons.Length; i++)
-            {
                 if (tabButton == UIRoot.instance.optionWindow.tabButtons[i])
                 {
                     Warn($"Found Button at index {i}");
                     tabIndex = i;
                     PageManager.SetTabIndex(i, pageIndex);
                 }
-            }
-            
         }
 
         public void Show()
@@ -108,6 +106,7 @@ namespace GS
         {
             page?.gameObject?.SetActive(false);
         }
+
         private static void CreateUIElement(GSUI option, GSUIList list)
         {
             Warn($"Creating UIElement {option.Label}");

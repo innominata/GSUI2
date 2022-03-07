@@ -14,7 +14,6 @@ namespace GS
 
         internal void Awake()
         {
-            
             InitializeLogger();
             Debug("Awake");
             GS.Warn("Awake");
